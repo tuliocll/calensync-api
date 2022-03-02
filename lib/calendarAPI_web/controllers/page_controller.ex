@@ -3,6 +3,7 @@ defmodule CalendarAPIWeb.PageController do
 
   alias CalendarAPI.Accounts
   alias CalendarAPI.Accounts.Session
+  alias CalendarAPI.Auth.Guardian
 
   def index(conn, _params) do
     render(conn)
@@ -10,9 +11,14 @@ defmodule CalendarAPIWeb.PageController do
 
   def login(conn, %{"credentials" => credentials}) do
     case Session.authenticate(credentials) do
-      {:ok, _} ->
+      {:ok, user} ->
+        token =
+          conn
+          |> Guardian.Plug.sign_in(user)
+          |> Guardian.Plug.current_token()
+
         conn
-        |> json(%{ok: true})
+        |> json(%{ok: true, token: token})
 
       {:error, message} ->
         conn

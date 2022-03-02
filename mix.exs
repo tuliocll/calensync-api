@@ -45,7 +45,8 @@ defmodule CalendarAPI.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:comeonin, "~> 3.0"}
+      {:comeonin, "~> 3.0"},
+      {:guardian, "~> 1.0"}
     ]
   end
 

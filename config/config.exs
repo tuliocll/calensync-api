@@ -37,6 +37,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :calendarAPI, CalendarAPI.Auth.Guardian,
+  issuer: "CalendarAPI",
+  ttl: {30, :days},
+  allowed_drift: 2000,
+  secret_key: "5ecret_key"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
